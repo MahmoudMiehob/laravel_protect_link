@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\CheckPassword;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CheckPassword;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +27,19 @@ require __DIR__.'/auth.php';
 
 
 Route::get('/users', function () {
+
+
+    if (Gate::allows('check-password')) {
+        abort(404);
+    }
+
     return view('users');
-})->name('users')->middleware(Check_Password::class);
+
+
+
+})->name('users');
+//->middleware(Check_Password::class)
+
 
 
 
