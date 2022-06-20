@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckPassword;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +23,19 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+
+Route::get('/users', function () {
+    return view('users');
+})->name('users')->middleware(Check_Password::class);
+
+
+
+Route::get('/create_password',[CheckPassword::class,'createpassword'])->name('create.password');
+Route::post('/update_password',[CheckPassword::class,'updatepassword'])->name('update.password');
+
+
+
+Route::get('/posts', function () {
+    return view('posts');
+})->name('posts');
